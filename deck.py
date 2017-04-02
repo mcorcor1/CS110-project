@@ -1,0 +1,76 @@
+import random
+
+ # rainbow_cat = 1
+ # attack = 2
+ # skip = 3
+ # favor = 4
+ # shuffle = 5
+ # tacocat = 6
+ # watermelon_cat = 7
+ # hairy_potato_cat = 8 
+ # beard_cat = 9
+ # nope = 10 #5
+ # see_the_future = 11 #5
+ # deck = 
+
+class Card:
+	#to make a card you must type Card("Name of Card")
+	def __init__(self,string):
+		self.type = string
+	def __str__(self):
+		return self.type
+class Deck:
+	#makes an empty list for the cards to be stored in
+	def __init__(self):
+		self.deck = []
+	#checks to see if the deck s empty
+	def is_empty(self):
+		return self.cards_left() == 0
+	#checks to see how many cards are currently in the deck
+	def cards_left(self):	
+		return len(self.deck)
+	#adds a card, the card parameter is the card class that is put in, index=0 means it will, at default, add the card to the top of the deck, the index value is only changed if the see the future card is played
+	def add_card(self,card,index=0):
+		self.deck.insert(index,card)
+	#prints the entire deck line by line
+	def print_deck(self):
+		for card in self.deck:
+			print(card.type)
+	#draws a card from the top of the deck, checks to see if there are cards left in the deck first, in order to see the card you have to enter print(draw_top)
+	def draw_top(self,num=0):
+		if self.is_empty():
+			print("some shit messed up")
+		else:
+			card_drawn = self.deck.pop(num)
+			return card_drawn
+	#draws a card from the bottom of the deck, does not return the card like draw_top does because see the future only affects the top cards
+	def draw_bottom(self):
+		if self.is_empty():
+			print("empty deck my guy")
+		else:
+			card_drawn = self.deck.pop(len(self.deck)-1)
+			print(card_drawn)
+	#peek is for seeing the future and altering the future
+	def peek(self,card_index):
+		return self.deck[card_index]
+	#see future draws the top three cards, prints the three cards, and puts the cards back in the correct positions
+	def see_future(self):
+		#arr = [1,2,3]
+		if self.cards_left() < 3:
+			for i in range(self.cards_left()):
+				card = self.draw_top(i)
+				print(card)
+				self.add_card(card,i)
+		else:
+			for i in range(3):
+				card = self.draw_top(i)
+				print(card) 
+				self.add_card(card,i)
+	#shuffles the deck
+	def shuffle(self):
+		random.shuffle(self.deck)
+	# def change_future(self):
+	# 	if self.cards_left():
+	# 		print("hi")
+
+ 		
