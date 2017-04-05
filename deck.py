@@ -7,11 +7,11 @@ import random
  # shuffle = 5
  # tacocat = 6
  # watermelon_cat = 7
- # hairy_potato_cat = 8 
+ # hairy_potato_cat = 8
  # beard_cat = 9
  # nope = 10 #5
  # see_the_future = 11 #5
- # deck = 
+ # deck =
 
 class Card:
 	#to make a card you must type Card("Name of Card")
@@ -23,11 +23,18 @@ class Deck:
 	#makes an empty list for the cards to be stored in
 	def __init__(self):
 		self.deck = []
-	#checks to see if the deck s empty
+	#returns the contents of the deck
+	def __str__(self):
+		length = "There are %d cards in the deck right now.\n" % len(self.deck)
+		cards = 'The deck currently contains: \n'
+		for card in self.deck:
+			cards += card + '\n'
+		return length + cards
+	#checks to see if the deck is empty
 	def is_empty(self):
 		return self.cards_left() == 0
 	#checks to see how many cards are currently in the deck
-	def cards_left(self):	
+	def cards_left(self):
 		return len(self.deck)
 	#adds a card, the card parameter is the card class that is put in, index=0 means it will, at default, add the card to the top of the deck, the index value is only changed if the see the future card is played
 	def add_card(self,card,index=0):
@@ -64,7 +71,7 @@ class Deck:
 		else:
 			for i in range(3):
 				card = self.draw_top(i)
-				print(card) 
+				print(card)
 				self.add_card(card,i)
 	#shuffles the deck
 	def shuffle(self):
@@ -72,5 +79,3 @@ class Deck:
 	# def change_future(self):
 	# 	if self.cards_left():
 	# 		print("hi")
-
- 		
