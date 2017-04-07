@@ -78,4 +78,4 @@ class Deck:
 		random.shuffle(self.deck)
 	# def change_future(self):
 	# 	if self.cards_left():
-	# 		print("hi")
+# 		print("hi")

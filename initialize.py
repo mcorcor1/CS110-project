@@ -1,5 +1,6 @@
 import deck
 import player
+#import screen
 
 def initialize():
 	exploding_kitten = deck.Card("Exploding Kitten")
@@ -44,14 +45,17 @@ def initialize():
 	for i in range(num_players-1):
 		decker.add_card(exploding_kitten)
 	decker.add_card(defuse)
+	decker.shuffle()
 	return decker,arr_players
 
 def main():
+	#screen = screen.make_screen()
 	decker,arr_players = initialize()
 	for i in range(len(arr_players)):
 		print(arr_players[i].print_name())
 		arr_players[i].show_hand()
 	print(decker.cards_left())
+	arr_players[0].prompt(decker)
 	# decker.print_deck()
 	# print(decker.cards_left())
 	# see_future = deck.Card("See the Future")
