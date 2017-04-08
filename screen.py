@@ -11,4 +11,3 @@ def make_screen():
     background.fill(grey)
     screen.blit(background,(0,0))
     return screen
-
