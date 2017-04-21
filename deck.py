@@ -62,7 +62,6 @@ class Deck:
         return self.deck[card_index]
     #see future draws the top three cards, prints the three cards, and puts the cards back in the correct positions
     def see_future(self):
-        #arr = [1,2,3]
         if self.cards_left() < 3:
             for i in range(self.cards_left()):
                 card = self.draw_top(i)
