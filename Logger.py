@@ -21,26 +21,20 @@ class Logger:
             font-size: 30px;
         }
         p {
-            font-size: 16px;
+            font-size: 12px;
         }
         </style>'''
         self.file.write(css)
         self.file.write('<h1>Exploding Kittens Log</h1>\n')
         self.file.write('<h2>%s</2>\n' % self.init_time)
-        self.log('Initialized log..', 'init')
+        self.log('Initialized log..')
 
     # adds a new event to the log
-    def log(self, event, attribute):
-        self.file.write('<p class=%s>' % attribute + event + '</p>')
+    def log(self, event):
+        self.file.write('<p>' + event + '</p>')
 
     # closes the log file, to be used when the program is closed
     def close(self):
         self.file.close()
 
-''' This is test code
-logger = Logger()
-logger.initialize()
-logger.log('Card played', 'act')
-logger.log('Game exited..', 'exit')
-logger.close()
-'''
+
