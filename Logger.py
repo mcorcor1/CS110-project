@@ -35,6 +35,7 @@ class Logger:
 
     # closes the log file, to be used when the program is closed
     def close(self):
+        self.log('Closing..')
         self.file.close()
 
 
