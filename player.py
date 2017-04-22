@@ -11,13 +11,14 @@ class Player:
     def print_name(self):
         return(self.name)
     def show_hand(self):
-        for card in self.hand:
-            print(card)
+        for i in range(len(self.hand)):
+            print(str(i)+"-"+self.hand[i].type)
     def prompt(self,decker,cards,arr_players):
         pick = True
         attack = False
         while pick:
             print("Player",self.name)
+            print("There are currently ", decker.cards_left(),"cards left")
             choice = input("Do you want to draw a card or play a card from your hand (D/P) : ")
             if choice == "D":
                 pick = False
@@ -33,17 +34,20 @@ class Player:
                             elif decision == "y":
                                 self.hand.pop(i)
                                 self.show_hand()
-                                print("You have played a defuse\n There are currently",decker.cards_left(),"cards left in the deck")
+                                print("You have played a defuse\n There are currently",decker.cards_left() + 1,"cards left in the deck")
                                 deck_spot = int(input("Enter the location you want the exploding kitten to be placed"))
+                                while deck_spot > decker.cards_left() or deck_spot < 0:
+                                	deck_spot = int(input("Enter the location you want the exploding kitten to be placed"))
                                 decker.add_card(cards[0],deck_spot-1)
                                 return False,False
                     if death == True:
                         return True,False
                 self.hand.append(drawn)
-                print("You drew", drawn)
+                print("You drew", drawn.type)
+                return False,False
             elif choice == "P":
                 pick,attack = self.play_card(decker,self.hand,pick,cards,attack)
-
+        return pick,attack
     def draw(self,decker):
         self.hand.append(decker.draw_top())
     #def use_card(self,hand):
@@ -60,21 +64,18 @@ class Player:
             else:
                 played_card = self.hand.pop(card_index)
                 is_in = False
-        print("You played", played_card)
+        print("You played", played_card.type)
         if played_card == cards[2]:
-            print("Your turn has been skipped")
-            pick = False
-            return pick,attack
+        	return played_card.skip(attack,pick)
         elif played_card == cards[5]:
             decker.shuffle()
-            print("The deck has been shuffled")
-            pick = True
-            return pick,attack
+            return True,False
         elif played_card == cards[3]:
-            attack = True
-            return pick,attack
+        	return played_card.attack(attack,pick)
+        elif played_card == cards[12]:
+        	played_card.see_future(decker)
+        	return pick,attack
         else:
             pick = True
             return pick,attack
 #player uses card from hand
-

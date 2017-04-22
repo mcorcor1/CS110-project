@@ -1,21 +1,22 @@
 import deck
 import player
+import Card
 #import screen
 
 def initialize():
-    exploding_kitten = deck.Card("Exploding Kitten")
-    defuse = deck.Card("Defuse")
-    skip = deck.Card("Skip")
-    attack = deck.Card("Attack")
-    rainbow_cat = deck.Card("Rainbow Cat")
-    favor = deck.Card("Favor")
-    shuffle = deck.Card("Shuffle")
-    tacocat = deck.Card("Taco Cat")
-    catermelon = deck.Card("Catermelon")
-    hairy_potato_cat = deck.Card("Hairy Potato Cat")
-    beard_cat = deck.Card("Beard Cat")
-    nope = deck.Card("Nope")
-    see_future = deck.Card("See the Future")
+    exploding_kitten = Card.Card("Exploding Kitten")
+    defuse = Card.Card("Defuse")
+    skip = Card.Card("Skip")
+    attack = Card.Card("Attack")
+    rainbow_cat = Card.Card("Rainbow Cat")
+    favor = Card.Card("Favor")
+    shuffle = Card.Card("Shuffle")
+    tacocat = Card.Card("Taco Cat")
+    catermelon = Card.Card("Catermelon")
+    hairy_potato_cat = Card.Card("Hairy Potato Cat")
+    beard_cat = Card.Card("Beard Cat")
+    nope = Card.Card("Nope")
+    see_future = Card.Card("See the Future")
     decker = deck.Deck()
     arr = []
     arr.append(exploding_kitten)
@@ -62,6 +63,13 @@ def initialize():
     decker.shuffle()
     return decker,arr_players,arr
 
+def turn_rollover(turn_order,number_players):
+    if turn_order == number_players:
+        turn_order = 0    
+    elif turn_order < 0:
+        turn_order = number_players
+    return turn_order
+
 def main():
     #screen = screen.make_screen()
     decker,arr_players,cards = initialize()
@@ -74,8 +82,14 @@ def main():
         death,attack = arr_players[turn_order].prompt(decker,cards,arr_players)
         if death == True:
             arr_players.pop(turn_order)
-        turn_order += 1
-        if turn_order == len(arr_players):
-            turn_order = 0
+            turn_order -= 1
+            turn_order = turn_rollover(turn_order,len(arr_players))
+        if attack:
+            turn_order = turn_rollover(turn_order,len(arr_players))
+            turn_order += 1
+            death,attack = arr_players[turn_order].prompt(decker,cards,arr_players)
+        else:
+            turn_order += 1
+        turn_order = turn_rollover(turn_order,len(arr_players))
 
 main()

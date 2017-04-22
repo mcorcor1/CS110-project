@@ -1,24 +1,11 @@
 import random
-
- # rainbow_cat = 1
- # attack = 2
- # skip = 3
- # favor = 4
- # shuffle = 5
- # tacocat = 6
- # watermelon_cat = 7
- # hairy_potato_cat = 8
- # beard_cat = 9
- # nope = 10 #5
- # see_the_future = 11 #5
- # deck =
-
-class Card:
-    #to make a card you must type Card("Name of Card")
-    def __init__(self,string):
-        self.type = string
-    def __str__(self):
-        return self.type
+import Card
+# class Card:
+#     #to make a card you must type Card("Name of Card")
+#     def __init__(self,string):
+#         self.type = string
+#     def __str__(self):
+#         return self.type
 class Deck:
     #makes an empty list for the cards to be stored in
     def __init__(self):
@@ -60,18 +47,6 @@ class Deck:
     #peek is for seeing the future and altering the future
     def peek(self,card_index):
         return self.deck[card_index]
-    #see future draws the top three cards, prints the three cards, and puts the cards back in the correct positions
-    def see_future(self):
-        if self.cards_left() < 3:
-            for i in range(self.cards_left()):
-                card = self.draw_top(i)
-                print(card)
-                self.add_card(card,i)
-        else:
-            for i in range(3):
-                card = self.draw_top(i)
-                print(card)
-                self.add_card(card,i)
     #shuffles the deck
     def shuffle(self):
         random.shuffle(self.deck)
