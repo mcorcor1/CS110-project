@@ -1,8 +1,9 @@
 import deck
 import player
 import Card
-#import screen
+import loops
 
+    #makes all the cards needed for the game
 def initialize():
     exploding_kitten = Card.Card("Exploding Kitten")
     defuse = Card.Card("Defuse")
@@ -18,33 +19,15 @@ def initialize():
     nope = Card.Card("Nope")
     see_future = Card.Card("See the Future")
     decker = deck.Deck()
-    arr = []
-    arr.append(exploding_kitten)
-    arr.append(defuse)
-    arr.append(skip)
-    arr.append(attack)
-    arr.append(favor)
-    arr.append(shuffle)
-    arr.append(rainbow_cat)
-    arr.append(tacocat)
-    arr.append(catermelon)
-    arr.append(hairy_potato_cat)
-    arr.append(beard_cat)
-    arr.append(nope)
-    arr.append(see_future)
+    #array containing all the cards which will be used for the calling of their specific function
+    arr = [exploding_kitten,defuse,skip,attack,favor,shuffle,rainbow_cat,tacocat,catermelon,hairy_potato_cat,beard_cat,nope,see_future]
+    #adds 4 of every card that is not an exploding kitten or defuse
     for i in range(4):
-        decker.add_card(skip)
-        decker.add_card(attack)
-        decker.add_card(rainbow_cat)
-        decker.add_card(favor)
-        decker.add_card(shuffle)
-        decker.add_card(tacocat)
-        decker.add_card(catermelon)
-        decker.add_card(hairy_potato_cat)
-        decker.add_card(beard_cat)
-    for i in range(5):
-        decker.add_card(nope)
-        decker.add_card(see_future)
+        for i in range(2,13):
+            decker.add_card(arr[i])
+    #these two cards appear 5 times in the deck so they are added again
+    decker.add_card(nope)
+    decker.add_card(see_future)
     decker.shuffle()
     num_players = -1
     while num_players < 2 or num_players > 5:
@@ -57,8 +40,10 @@ def initialize():
         player_name = player.Player(input("Enter the name of player "+str(i+1)+": "))
         player_name.starting_hand(decker,arr[1])
         arr_players.append(player_name)
+    #exploding kittens are added to the deck
     for i in range(num_players-1):
         decker.add_card(exploding_kitten)
+    #there is one extra defuse card in the deck
     decker.add_card(defuse)
     decker.shuffle()
     return decker,arr_players,arr
@@ -79,7 +64,7 @@ def main():
     print(decker.cards_left())
     turn_order = 0
     while len(arr_players) != 1:
-        death,attack = arr_players[turn_order].prompt(decker,cards,arr_players)
+        death,attack = loops.choice_loop(decker,cards,arr_players,turn_order)
         if death == True:
             arr_players.pop(turn_order)
             turn_order -= 1
@@ -87,9 +72,8 @@ def main():
         if attack:
             turn_order = turn_rollover(turn_order,len(arr_players))
             turn_order += 1
-            death,attack = arr_players[turn_order].prompt(decker,cards,arr_players)
-        else:
-            turn_order += 1
+            death,attack = loops.choice_loop(decker,cards,arr_players,turn_order)
+        turn_order += 1
         turn_order = turn_rollover(turn_order,len(arr_players))
 
 main()

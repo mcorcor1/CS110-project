@@ -1,11 +1,6 @@
 import random
 import Card
-# class Card:
-#     #to make a card you must type Card("Name of Card")
-#     def __init__(self,string):
-#         self.type = string
-#     def __str__(self):
-#         return self.type
+
 class Deck:
     #makes an empty list for the cards to be stored in
     def __init__(self):
@@ -37,13 +32,13 @@ class Deck:
         else:
             card_drawn = self.deck.pop(num)
             return card_drawn
-    #draws a card from the bottom of the deck, does not return the card like draw_top does because see the future only affects the top cards
+    #draws from bottom
     def draw_bottom(self):
         if self.is_empty():
             print("empty deck my guy")
         else:
             card_drawn = self.deck.pop(len(self.deck)-1)
-            print(card_drawn)
+            return card_drawn
     #peek is for seeing the future and altering the future
     def peek(self,card_index):
         return self.deck[card_index]
