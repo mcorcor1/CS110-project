@@ -58,8 +58,8 @@ def turn_rollover(turn_order,number_players):
 def main():
     #screen = screen.make_screen()
     decker,arr_players,cards = initialize()
-    for i in range(len(arr_players)):
-        print(arr_players[i].print_name())
+    for i,k in enumerate(arr_players):
+        print(k.print_name())
         arr_players[i].show_hand()
     print(decker.cards_left())
     turn_order = 0

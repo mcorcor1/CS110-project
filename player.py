@@ -14,8 +14,8 @@ class Player:
     def print_name(self):
         return(self.name)
     def show_hand(self):
-        for i in range(len(self.hand)):
-            print(str(i)+"-"+self.hand[i].type)
+        for i,k in enumerate(self.hand):
+            print(str(i)+"-"+k.type)
     def draw(self,decker):
         self.hand.append(decker.draw_top())
     def play_card(self,decker,hand,pick,cards,attack,arr_players,turn_order):
@@ -28,6 +28,9 @@ class Player:
                 if i.type == played_card.type:
                     x += 1
             if x >= 1:
+                if played_card.nope(arr_players,cards,turn_order):
+                    hand.remove(played_card)
+                    return True,False
                 return played_card.steal(hand,self,arr_players,played_card)
             elif x == 0:
                 print("You do not have two of those")
@@ -35,15 +38,25 @@ class Player:
                 return True,False
         else:
             if played_card == cards[2]:
+                if played_card.nope(arr_players,cards,turn_order):
+                    return True,False
                 return played_card.skip(attack,pick)
             elif played_card == cards[3]:
+                if played_card.nope(arr_players,cards,turn_order):
+                    return True,False
                 return played_card.attack(attack,pick)
             elif played_card == cards[4]:
+                if played_card.nope(arr_players,cards,turn_order):
+                    return True,False
                 return played.card.favor(hand,self,arr_players,played_card)
             elif played_card == cards[5]:
+                if played_card.nope(arr_players,cards,turn_order):
+                    return True,False
                 decker.shuffle()
                 return True,False
             elif played_card == cards[12]:
+                if played_card.nope(arr_players,cards,turn_order):
+                    return True,False
                 played_card.see_future(decker)
                 return pick,attack
             else:
