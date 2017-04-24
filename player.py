@@ -39,7 +39,7 @@ class Player:
         else:
             if played_card == cards[2]:
                 if played_card.nope(arr_players,cards,turn_order):
-                    return True,False
+                    return  True,False
                 return played_card.skip(attack,pick)
             elif played_card == cards[3]:
                 if played_card.nope(arr_players,cards,turn_order):

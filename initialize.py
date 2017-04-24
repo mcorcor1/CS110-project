@@ -48,32 +48,12 @@ def initialize():
     decker.shuffle()
     return decker,arr_players,arr
 
-def turn_rollover(turn_order,number_players):
-    if turn_order == number_players:
-        turn_order = 0    
-    elif turn_order < 0:
-        turn_order = number_players
-    return turn_order
-
 def main():
     #screen = screen.make_screen()
     decker,arr_players,cards = initialize()
     for i,k in enumerate(arr_players):
         print(k.print_name())
         arr_players[i].show_hand()
-    print(decker.cards_left())
-    turn_order = 0
-    while len(arr_players) != 1:
-        death,attack = loops.choice_loop(decker,cards,arr_players,turn_order)
-        if death == True:
-            arr_players.pop(turn_order)
-            turn_order -= 1
-            turn_order = turn_rollover(turn_order,len(arr_players))
-        if attack:
-            turn_order = turn_rollover(turn_order,len(arr_players))
-            turn_order += 1
-            death,attack = loops.choice_loop(decker,cards,arr_players,turn_order)
-        turn_order += 1
-        turn_order = turn_rollover(turn_order,len(arr_players))
+    loops.main_loop(decker,cards,arr_players)
 
 main()

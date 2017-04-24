@@ -80,3 +80,25 @@ def phase_of_taking(arr_players,player):
         print(str(k)+"-"+v.name)
     recipient = choosing_player(arr_players,player)
     return recipient
+
+def turn_rollover(turn_order,number_players):
+    if turn_order == number_players:
+        turn_order = 0    
+    elif turn_order < 0:
+        turn_order = number_players
+    return turn_order
+
+def main_loop(decker,cards,arr_players):
+    turn_order = 0
+    while len(arr_players) != 1:
+        death,attack = choice_loop(decker,cards,arr_players,turn_order)
+        if death == True:
+            arr_players.pop(turn_order)
+            turn_order -= 1
+            turn_order = turn_rollover(turn_order,len(arr_players))
+        if attack:
+            turn_order = turn_rollover(turn_order,len(arr_players))
+            turn_order += 1
+            death,attack = choice_loop(decker,cards,arr_players,turn_order)
+        turn_order += 1
+        turn_order = turn_rollover(turn_order,len(arr_players))
